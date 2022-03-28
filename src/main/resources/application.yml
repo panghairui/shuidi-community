@@ -1,0 +1,37 @@
+# 后续考虑接入远程配置中心
+
+# 配置类 ServerProperties
+server:
+    port: 8084
+    servlet:
+        context-path: /community
+
+# 测试环境thymeleaf缓存关掉 上线前打开
+spring:
+  # ThymeleafProperties
+  thymeleaf:
+      cache: false
+  # DataSourceProperties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community?characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: 80230507p
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 30000
+
+# MybatisProperties
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.nowcoder.community.entity
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+
+# logger
+logging:
+  level:
+    com.shuidi.community: debug
