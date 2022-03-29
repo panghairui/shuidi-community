@@ -1,6 +1,8 @@
 package com.shuidi.community.service.impl;
 
+import com.shuidi.community.dao.LoginTicketDao;
 import com.shuidi.community.dao.UserDao;
+import com.shuidi.community.entity.LoginTicket;
 import com.shuidi.community.entity.User;
 import com.shuidi.community.service.UserService;
 import com.shuidi.community.util.ActivationConstant;
@@ -34,11 +36,16 @@ public class UserServiceImpl implements UserService, ActivationConstant {
     @Autowired
     private TemplateEngine templateEngine;
 
+    @Autowired
+    private LoginTicketDao loginTicketDao;
+
     @Value("${community.path.domain}")
     private String domain;
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
+
+    private final static String ERROR = "error";
 
     @Override
     public User findUserById(long id) {
@@ -98,6 +105,71 @@ public class UserServiceImpl implements UserService, ActivationConstant {
         } else {
             return ACTIVATION_FAILURE;
         }
+    }
+
+    @Override
+    public Map<String, Object> login(String username, String password, int expiredSeconds) {
+
+        Map<String, Object> mp = new HashMap<>();
+        User user = userDao.selectByName(username);
+
+        // 参数校验
+        String msg = loginValid(user, username, password, mp);
+        if (StringUtils.isNotBlank(msg)) {
+            log.info("UserServiceImpl login error username:{} password:{}", username, password);
+            return mp;
+        }
+
+        // 生成登录凭证
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(CommunityUtil.generateUUID());
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000L));
+        loginTicketDao.insertLoginTicket(loginTicket);
+
+        mp.put("ticket", loginTicket.getTicket());
+
+        return mp;
+    }
+
+    @Override
+    public void logout(String ticket) {
+        loginTicketDao.updateStatus(ticket, 1);
+    }
+
+    private String loginValid(User user, String username, String password, Map<String, Object> mp) {
+
+        if (StringUtils.isBlank(username)) {
+            mp.put("usernameMsg", "账号不能为空!");
+            return ERROR;
+        }
+
+        if (StringUtils.isBlank(password)) {
+            mp.put("passwordMsg", "密码不能为空!");
+            return ERROR;
+        }
+
+        // 验证账号
+        if (Objects.isNull(user)) {
+            mp.put("usernameMsg", "该账号不存在!");
+            return ERROR;
+        }
+
+        // 验证状态
+        if (user.getStatus() == 0) {
+            mp.put("usernameMsg", "该账号未激活!");
+            return ERROR;
+        }
+
+        // 验证密码
+        password = CommunityUtil.md5(password + user.getSalt());
+        if (!user.getPassword().equals(password)) {
+            mp.put("passwordMsg", "密码不正确!");
+            return ERROR;
+        }
+
+        return "";
     }
 
     private void buildUserMsg(User user) {

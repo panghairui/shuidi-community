@@ -26,4 +26,14 @@ public interface UserService {
      */
     int activation(int userId, String code);
 
+    /**
+     * 用户登录
+     */
+    Map<String, Object> login(String username, String password, int expiredSeconds);
+
+    /**
+     * 退出登录
+     */
+    void logout(String ticket);
+
 }
