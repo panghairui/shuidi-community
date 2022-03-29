@@ -22,6 +22,18 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 5
       idle-timeout: 30000
+  # MailProperties
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: q3206837094@163.com
+    password: GRVDHIZWIYJPXUAK
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 
 # MybatisProperties
 mybatis:
@@ -35,3 +47,8 @@ mybatis:
 logging:
   level:
     com.shuidi.community: debug
+
+# community
+community:
+  path:
+    domain: http://localhost:8084
