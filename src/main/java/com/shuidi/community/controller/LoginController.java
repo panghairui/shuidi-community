@@ -1,6 +1,7 @@
 package com.shuidi.community.controller;
 
 import com.google.code.kaptcha.Producer;
+import com.shuidi.community.entity.LoginTicket;
 import com.shuidi.community.entity.User;
 import com.shuidi.community.service.UserService;
 import com.shuidi.community.util.ActivationConstant;

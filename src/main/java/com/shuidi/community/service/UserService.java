@@ -1,5 +1,6 @@
 package com.shuidi.community.service;
 
+import com.shuidi.community.entity.LoginTicket;
 import com.shuidi.community.entity.User;
 
 import java.util.Map;
@@ -36,4 +37,13 @@ public interface UserService {
      */
     void logout(String ticket);
 
+    /**
+     * 获取凭证
+     */
+    LoginTicket findLoginTicket(String ticket);
+
+    /**
+     * 更新头像
+     */
+    int updateHeader(long userId, String headerUrl);
 }

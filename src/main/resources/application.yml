@@ -52,3 +52,4 @@ logging:
 community:
   path:
     domain: http://localhost:8084
+    upload: /Users/panghairui/myProject/upload

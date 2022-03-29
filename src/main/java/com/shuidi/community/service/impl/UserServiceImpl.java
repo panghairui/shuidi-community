@@ -138,6 +138,16 @@ public class UserServiceImpl implements UserService, ActivationConstant {
         loginTicketDao.updateStatus(ticket, 1);
     }
 
+    @Override
+    public LoginTicket findLoginTicket(String ticket) {
+        return loginTicketDao.selectByTicket(ticket);
+    }
+
+    @Override
+    public int updateHeader(long userId, String headerUrl) {
+        return userDao.updateHeader(userId, headerUrl);
+    }
+
     private String loginValid(User user, String username, String password, Map<String, Object> mp) {
 
         if (StringUtils.isBlank(username)) {
