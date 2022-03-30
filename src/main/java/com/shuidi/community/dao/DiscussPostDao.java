@@ -18,6 +18,6 @@ public interface DiscussPostDao {
 
     long selectDiscussPostRows(@Param("userId") long userId);
 
-
+    int insertDiscussPost(DiscussPost discussPost);
 
 }

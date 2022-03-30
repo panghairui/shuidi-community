@@ -23,4 +23,9 @@ public interface DiscussPostService {
      */
     long findDiscussPostRows(long userId);
 
+    /**
+     * 发布帖子
+     */
+    int addDiscussPost(DiscussPost post);
+
 }
