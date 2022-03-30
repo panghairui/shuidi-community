@@ -49,4 +49,10 @@
         where id = #{id}
     </select>
 
+    <update id="updateCommentCount">
+        update <include refid="tableName"/>
+        set comment_count = #{commentCount}
+        where id = #{id}
+    </update>
+
 </mapper>

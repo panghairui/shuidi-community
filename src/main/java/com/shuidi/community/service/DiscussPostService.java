@@ -33,4 +33,9 @@ public interface DiscussPostService {
      */
     DiscussPost findDiscussPostById(long id);
 
+    /**
+     * 更新评论数
+     */
+    int updateCommentCount(long id, long commentCount);
+
 }

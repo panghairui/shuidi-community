@@ -57,4 +57,9 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         return discussPostDao.selectDiscussPostById(id);
     }
 
+    @Override
+    public int updateCommentCount(long id, long commentCount) {
+        return discussPostDao.updateCommentCount(id, commentCount);
+    }
+
 }

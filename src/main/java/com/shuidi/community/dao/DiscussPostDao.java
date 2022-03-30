@@ -22,4 +22,6 @@ public interface DiscussPostDao {
 
     DiscussPost selectDiscussPostById(long id);
 
+    int updateCommentCount(long id, long commentCount);
+
 }
