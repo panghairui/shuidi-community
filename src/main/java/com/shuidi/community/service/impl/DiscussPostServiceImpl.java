@@ -52,4 +52,9 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         return discussPostDao.insertDiscussPost(post);
     }
 
+    @Override
+    public DiscussPost findDiscussPostById(long id) {
+        return discussPostDao.selectDiscussPostById(id);
+    }
+
 }

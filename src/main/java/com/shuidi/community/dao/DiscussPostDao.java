@@ -20,4 +20,6 @@ public interface DiscussPostDao {
 
     int insertDiscussPost(DiscussPost discussPost);
 
+    DiscussPost selectDiscussPostById(long id);
+
 }

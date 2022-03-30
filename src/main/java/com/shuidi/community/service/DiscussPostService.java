@@ -28,4 +28,9 @@ public interface DiscussPostService {
      */
     int addDiscussPost(DiscussPost post);
 
+    /**
+     * 查询帖子
+     */
+    DiscussPost findDiscussPostById(long id);
+
 }
