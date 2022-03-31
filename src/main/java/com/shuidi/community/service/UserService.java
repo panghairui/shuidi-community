@@ -46,4 +46,9 @@ public interface UserService {
      * 更新头像
      */
     int updateHeader(long userId, String headerUrl);
+
+    /**
+     * 根据用户名查用户
+     */
+    User findUserByName(String username);
 }

@@ -148,6 +148,11 @@ public class UserServiceImpl implements UserService, ActivationConstant {
         return userDao.updateHeader(userId, headerUrl);
     }
 
+    @Override
+    public User findUserByName(String username) {
+        return userDao.selectByName(username);
+    }
+
     private String loginValid(User user, String username, String password, Map<String, Object> mp) {
 
         if (StringUtils.isBlank(username)) {
